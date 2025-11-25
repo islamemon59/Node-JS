@@ -1,7 +1,7 @@
 import http, { IncomingMessage, Server, ServerResponse } from "http";
 import config from "./config";
 import { RouteHandler, routes } from "./helpers/RouteHandler";
-import "./routes/index"
+import "./routes/index";
 
 const server: Server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
@@ -23,33 +23,6 @@ const server: Server = http.createServer(
           path,
         })
       );
-    }
-
-    //post request
-    if (req.url == "/api/users" && req.method == "POST") {
-      // const user = {
-      //   id: 1,
-      //   name: "Bob",
-      // };
-      // res.writeHead(200, { "content-type": "application/json" });
-      // res.end(JSON.stringify(user));
-
-      let body = "";
-
-      req.on("data", (chunk) => {
-        body = body + chunk.toString();
-      });
-
-      req.on("end", () => {
-        try {
-          const parseBody = JSON.parse(body);
-          console.log(parseBody);
-          console.log("Check the to get current changing data");
-          res.end(JSON.stringify(parseBody));
-        } catch (error: any) {
-          console.log(error?.message);
-        }
-      });
     }
   }
 );
